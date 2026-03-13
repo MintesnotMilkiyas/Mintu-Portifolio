@@ -1,212 +1,803 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MyPortfolio | Samuel Kebede</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Mintesnot Milkiyas | Portfolio</title>
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* ----- RESET & BASE (from your code, merged) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', Helvetica, sans-serif;
+    }
 
-<link rel="stylesheet" href="style.css">
+    body {
+      background: #e9e9e9;
+      color: #1d2b3a;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-<!-- Icons -->
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    /* ----- HEADER (green, solid, from your style) ----- */
+    .header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background: #0e7a6c;   /* your teal/green */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 10%;
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
 
+    .logo {
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      margin-left: -7rem;
+    }
+
+    .navbar {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      transition: 0.3s;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 4px;
+    }
+
+    .navbar a:hover {
+      color: black;
+      border-bottom-color: black;
+    }
+
+    /* ----- SECTIONS general ----- */
+    section {
+      padding: 100px 10%;
+    }
+
+    .heading {
+      font-size: 4rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      font-weight: 700;
+    }
+
+    .heading span {
+      color: #0e7a6c;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 30px;
+      background: #0e7a6c;
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 16px rgba(14, 122, 108, 0.25);
+    }
+
+    .btn:hover {
+      box-shadow: 0 0 25px #0e7a6c;
+      transform: scale(1.05);
+    }
+
+    /* ----- HOME (with floating image & glow) ----- */
+    .home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 80px;
+      padding: 120px 10% 100px; /* extra top padding for fixed header */
+    }
+
+    .home-img {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .home-img img {
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 60px 10px rgba(14, 122, 108, 0.4), 0 0 20px #0e7a6c, 0 0 40px #0e7a6c;
+      animation: floatImage 4s ease-in-out infinite;
+      transition: 0.5s ease;
+      margin-bottom: -2rem;
+    }
+
+    .home-img img:hover {
+      box-shadow: 0 0 40px #0e7a6c, 0 0 80px #0e7a6c;
+    }
+
+    @keyframes floatImage {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+      100% { transform: translateY(0); }
+    }
+
+    .home-content {
+      flex: 1;
+    }
+
+    .home-content h3 {
+      font-size: 32px;
+      color: #1d3b1d;
+    }
+
+    .home-content h1 {
+      font-size: 70px;
+      font-weight: bold;
+      background: linear-gradient(to right, #0b3b1e, #0e7a6c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0.5rem 0;
+    }
+
+    .home-content span {
+      color: #0e7a6c;
+    }
+
+    .home-content p {
+      margin: 20px 0;
+      max-width: 500px;
+      color: #1f4025;
+      font-size: 1.2rem;
+    }
+
+    /* social icons */
+    .social-media {
+      display: flex;
+      gap: 1.2rem;
+      margin: 2rem 0 2.2rem;
+      flex-wrap: wrap;
+    }
+
+    .social-media a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      border: 2px solid #0e7a6c;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      color: #0e7a6c;
+      transition: 0.4s;
+      text-decoration: none;
+    }
+
+    .social-media a:hover {
+      background: #0e7a6c;
+      color: white;
+      box-shadow: 0 0 20px #0e7a6c;
+      transform: translateY(-10px);
+    }
+
+    /* ----- ABOUT (light mint background, rotating image) ----- */
+    .about {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      background: #d5fef9; /* light mint/teal */
+      min-height: 100vh;
+      flex-wrap: wrap;
+    }
+
+    .about-content {
+      flex: 1 1 350px;
+    }
+
+    .about-content .heading {
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+
+    .about-content h3 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-content h3 span {
+      color: #0e7a6c;
+      border-bottom: 3px solid #0e7a6c;
+    }
+
+    .about-content p {
+      font-size: 1.15rem;
+      margin: 1.5rem 0;
+      color: #1f3a25;
+    }
+
+    .about-content p span {
+      font-weight: 700;
+      color: #036b5d;
+    }
+
+    .about-img {
+      flex: 1 1 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .about-img img {
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 60px 10px rgba(14, 122, 108, 0.4), 0 0 20px #0e7a6c, 0 0 40px #0e7a6c;
+      animation: floatAbout 4s ease-in-out infinite;
+      transition: opacity 0.5s ease, box-shadow 0.3s;
+      cursor: pointer;
+      opacity: 1;
+    }
+
+    .about-img img:hover {
+      box-shadow: 0 0 40px #0e7a6c, 0 0 80px #0e7a6c;
+    }
+
+    @keyframes floatAbout {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* ----- SERVICES (3D hover, mint cards) ----- */
+    .services {
+      background: #ffffff;
+      perspective: 1000px;
+    }
+
+    .services-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: stretch;
+      gap: 2.5rem;
+    }
+
+    .services-box {
+      background: #d5fef9;
+      padding: 2rem 1rem;
+      border-radius: 2rem;
+      text-align: center;
+      box-shadow: 0 0 1rem rgba(14, 122, 108, 0.1);
+      transition: 0.5s ease-in-out;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .services-box:hover {
+      transform: translateY(-20px) scale(1.03) rotateX(2deg) rotateY(1deg);
+      box-shadow: 0 0 2rem rgba(14, 122, 108, 0.6);
+      cursor: pointer;
+    }
+
+    .services-box i {
+      font-size: 5rem;
+      color: #0e7a6c;
+      margin-bottom: 1rem;
+    }
+
+    .services-box h3 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #111;
+    }
+
+    .skill-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .skill-item {
+      text-align: center;
+      transition: 0.3s ease;
+      min-width: 70px;
+    }
+
+    .skill-item i {
+      font-size: 2.2rem;
+      color: #0e7a6c;
+      display: block;
+    }
+
+    .skill-item p {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: -0.5rem;
+      color: #1d1d1d;
+    }
+
+    .skill-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .services-box .btn {
+      margin-top: auto;
+      padding: 0.6rem 1.5rem;
+      font-size: 0.9rem;
+      align-self: center;
+    }
+
+    /* ----- TESTIMONIALS (white cards, premium hover) ----- */
+    .testimonials {
+      background: #d5fef9;
+      perspective: 1000px;
+    }
+
+    .testimonial-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
+
+    .testimonial-box {
+      background: white;
+      padding: 2rem 1.5rem;
+      border-radius: 2rem;
+      text-align: center;
+      border: 2px solid transparent;
+      box-shadow: 0 0 1rem rgba(14, 122, 108, 0.1);
+      transition: 0.5s ease-in-out;
+    }
+
+    .testimonial-box:hover {
+      transform: translateY(-25px) scale(1.05);
+      box-shadow: 0 1rem 3rem rgba(14, 122, 108, 0.6);
+      border-color: #0e7a6c;
+      cursor: pointer;
+    }
+
+    .client-info img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid white;
+      box-shadow: 0 0 20px rgba(14, 122, 108, 0.4);
+      margin-bottom: 1rem;
+      transition: 0.5s ease;
+      cursor: pointer;
+    }
+
+    .testimonial-box:hover img {
+      box-shadow: 0 0 30px rgba(14, 122, 108, 0.8);
+      transform: rotate(3deg);
+    }
+
+    .client-info h3 {
+      font-size: 1.8rem;
+      color: #111;
+    }
+
+    .stars {
+      margin: 0.8rem 0;
+    }
+
+    .stars i {
+      font-size: 1.5rem;
+      color: #f6d133;
+      transition: 0.4s ease;
+    }
+
+    .testimonial-box:hover .stars i {
+      transform: scale(1.15);
+      text-shadow: 0 0 10px rgba(246, 209, 51, 0.6);
+    }
+
+    .testimonial-box p {
+      font-size: 1rem;
+      color: #141414;
+    }
+
+    /* ----- IMAGE VIEWER MODAL (from your code) ----- */
+    #image-viewer {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      max-width: 80%;
+      max-height: 80%;
+      border-radius: 10px;
+      animation: zoom 0.3s;
+    }
+
+    @keyframes zoom {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+
+    #image-viewer .close {
+      position: absolute;
+      top: 30px;
+      right: 50px;
+      color: white;
+      font-size: 60px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* ----- CONTACT (compact) ----- */
+    .contact {
+      background: #ffffff;
+      padding: 60px 10%;
+    }
+
+    .contact form {
+      max-width: 38rem;
+      margin: 0 auto;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .input-box {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .input-box input,
+    .contact form textarea {
+      width: 100%;
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      color: #111;
+      background: white;
+      border-radius: 0.4rem;
+      border: 1.2px solid #0e7a6c;
+      transition: 0.3s;
+    }
+
+    .input-box input {
+      flex: 1 1 200px;
+    }
+
+    .contact form textarea {
+      height: 9rem;
+      margin-top: 0.3rem;
+    }
+
+    .contact form .btn {
+      margin-top: 1.2rem;
+      padding: 0.6rem 2rem;
+      font-size: 1rem;
+      border-radius: 1.4rem;
+      width: auto;
+      background: #0e7a6c;
+      color: white;
+      border: none;
+    }
+
+    .contact form .btn:hover {
+      background: #0a5e53;
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px #0e7a6c;
+    }
+
+    /* ----- FOOTER (matching testimonials bg) ----- */
+    .footer {
+      padding: 2rem 10%;
+      background: #d5fef9;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .footer .social-media {
+      margin: 0;
+    }
+
+    .footer-text p {
+      font-size: 1rem;
+      color: #111;
+      font-weight: 500;
+    }
+
+    /* ----- RESPONSIVE DESIGN (merged) ----- */
+    @media (max-width: 991px) {
+      .heading { font-size: 3rem; }
+      .services-container, .testimonial-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .about { flex-direction: column; text-align: center; }
+      .about-content .heading { text-align: center; }
+      .home { flex-direction: column-reverse; text-align: center; gap: 40px; }
+      .home-content h1 { font-size: 50px; }
+      .home-img img { width: 320px; height: 320px; }
+      .about-img img { width: 300px; height: 300px; }
+      .logo { margin-left: 0; }
+    }
+
+    @media (max-width: 768px) {
+      .header { flex-direction: column; padding: 15px 5%; }
+      .navbar { justify-content: center; gap: 1rem; }
+      .navbar a { font-size: 16px; }
+      .home { padding: 140px 5% 80px; }
+      .home-content h1 { font-size: 40px; }
+      .home-content h3 { font-size: 24px; }
+      .btn { padding: 10px 25px; }
+      .input-box { flex-direction: column; }
+      .footer { flex-direction: column; }
+    }
+
+    @media (max-width: 480px) {
+      .heading { font-size: 2.5rem; }
+      .home-img img { width: 260px; height: 260px; }
+      .about-img img { width: 240px; height: 240px; }
+    }
+  </style>
 </head>
 <body>
 
 <header class="header">
-
-<div class="logo">MINTESNOT MILKIYAS</div>
-
-<nav class="navbar">
-<a href="#home">Home</a>
-<a href="#about">About</a>
-<a href="#services">Services</a>
-<a href="#testimonials">Testimonial</a>
-<a href="#contact">Contact</a>
-</nav>
-
+  <div class="logo">MINTESNOT MILKIYAS</div>
+  <nav class="navbar">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#testimonials">Testimonial</a>
+    <a href="#contact">Contact</a>
+  </nav>
 </header>
 
+<!-- HOME SECTION -->
 <section class="home" id="home">
-
-<div class="home-img">
-<img src="images/port.jpg" alt="">
-</div>
-
-
-<div class="home-content">
-
-<h3>Hello, Myself</h3>
-
-<h1>Mintesnot milkiyas</h1>
-
-<h3>And I'm a <span class="multiple-text"></span></h3>
-
-<p>
-I design and build modern, scalable, and user-friendly web applications. 
-I enjoy turning complex problems into clean, efficient solutions.
-</p>
-
-
-<div class="social-media">
-
-<a href=""><i class="fa-brands fa-linkedin-in"></i></a>
-
-<a href="https://github.com/MintesnotMilkiyas"><i class="fa-brands fa-github"></i></a>
-
-<a href="https://www.facebook.com/lijminte.miki"><i class="fa-brands fa-facebook-f"></i></a>
-
-<a href="https://www.instagram.com/mintemiki2025?igsh=OTd4dDl6czRtaXpw"><i class="fa-brands fa-instagram"></i></a>
-
-</div>
-
-<a href="#" class="btn">Download CV</a>
-
-</div>
-</section>
-
-
-<section class="about" id="about">
-    <div class="about-content">
-        <h2 class="heading">About <span>Me</span></h2>
-        <h3>I'm a <span class="change-text">Full Stack Web Developer</span></h3>
-        <p>
-           I’m <span>Mintesnot Milkiyas</span>, a passionate Full Stack Web Developer focused on building modern, scalable, and user-friendly web applications.
-            <br>   
-           I enjoy working across the full stack — from crafting clean UI with HTML, CSS, and React to building reliable backend systems using PHP, Node.js, and MySQL.
-            <br>
-           Currently, I’m developing an Academic Portal System for Ethiopian undergraduate institutions, designed to streamline academic workflows and data management.
-        </p>
-        <a href="#home" class="btn">Read more</a>
-    </div>
-
-    <div class="about-img">
-        <img src="images/profile3.png" alt="About Me">
-    </div>
-</section>
-
-
-    <section class="services" id="services">
-    <h2 class="heading">My <span>Services</span></h2>
-
-    <div class="services-container">
-        <div class="services-box">
-            <i class='bx bx-code-alt'></i> <h3>    <div class="skill-items"><i class="fa-solid fa-code"></i><p>Frontend<br>Web Development</p></div></h3>
-            <p>        
-           <div class="skill-item"><i class="fa-brands fa-html5"></i><p>HTML</p></div>
-           <div class="skill-item"><i class="fa-brands fa-css3-alt"></i><p>CSS</p></div>
-           <div class="skill-item"><i class="fa-brands fa-js"></i><p>JavaScript</p></div>
-            </p>
-            <a href="#home" class="btn">Read More</a>
-        </div>
-
-        <div class="services-box">
-            <i class='bx bxs-paint'></i> <h3>    <div class="skill-items"><i class="fa-solid fa-server"></i><p>Backend<br>Web Development</p></div></h3>
-            <p>
-            <div class="skill-item"><i class="fa-brands fa-php"></i><p>PHP</p></div>
-            <div class="skill-item"><i class="fa-brands fa-node-js"></i><p>Node.js</p></div>
-            <div class="skill-item"><i class="fa-brands fa-react"></i><p>React</p></div>
-            </p>
-            <a href="#home" class="btn">Read More</a>
-        </div>
-
-        <div class="services-box">
-            <i class='bx bx-mobile-alt'></i><h3><div class="skill-items"><i class="fa-solid fa-database"></i><p>Database</p></div></h3>
-            <p>
-            <div class="skill-item"><i class="fa-solid fa-database"></i><p> MySQL / Database</p></div>
-            </p>
-            <a href="#home" class="btn">Read More</a>
-        </div>
-
-</section>
-
-<section class="testimonials" id="testimonials">
-    <h2 class="heading">Client <span>Testimonials</span></h2>
-
-    <div class="testimonial-container">
-        <div class="testimonial-box">
-            <div class="client-info">
-                <img src="images/mintu.jpg" alt="Bank of Abyssinia"> 
-                <h3>Bank of Abyssinia</h3>
-            </div>
-            <div class="stars">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            </div>
-            <p>Keep It Up, Keep It Up.....</p>
-        </div>
-
-        <div class="testimonial-box">
-            <div class="client-info">
-                <img src="images/test2.png" alt="WPTC"> 
-                <h3>WPT College</h3>
-            </div>
-            <div class="stars">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            </div>
-            <p>Amazing Academic Portal & Good Job!!</p>
-        </div>
-
-        <div class="testimonial-box">
-            <div class="client-info">
-                <img src="images/mintu.jpg" alt="Aleksa"> 
-                <h3>Aleksa</h3>
-            </div>
-            <div class="stars">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            </div>
-            <p>The Project is Awesome!!</p>
-        </div>
-    </div>
-</section>
-
-<div id="image-viewer">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="full-image">
-</div>
-
-<section class="contact" id="contact">
-    <h2 class="heading">Contact <span>Me</span></h2>
-
-    <form action="#">
-        <div class="input-group">
-            <div class="input-box">
-                <input type="text" placeholder="Full Name">
-                <input type="number" placeholder="Phone Number">
-            </div>
-            <div class="input-box">
-                <input type="email" placeholder="Email Address">
-                <input type="text" placeholder="Title">
-            </div>
-        </div>
-
-        <div class="textarea-box">
-            <textarea name="" id="" cols="30" rows="10" placeholder="Your Message"></textarea>
-        </div>
-
-        <input type="submit" value="Send Message" class="btn">
-    </form>
-</section>
-
-<footer class="footer" id="contact">
+  <div class="home-img">
+    <img src="images/port.jpg" alt="Mintesnot profile" id="homeImage">
+  </div>
+  <div class="home-content">
+    <h3>Hello, Myself</h3>
+    <h1>Mintesnot milkiyas</h1>
+    <h3>And I'm a <span class="multiple-text">Full Stack Developer</span></h3>
+    <p>I design and build modern, scalable, and user-friendly web applications. I enjoy turning complex problems into clean, efficient solutions.</p>
     <div class="social-media">
-<a href=""><i class="fa-brands fa-linkedin-in"></i></a>
-
-<a href="https://github.com/MintesnotMilkiyas"><i class="fa-brands fa-github"></i></a>
-
-<a href="https://www.instagram.com/mintemiki2025?igsh=OTd4dDl6czRtaXpw"><i class="fa-brands fa-instagram"></i></a>
-
-<a href="mailto: milkiyasmintesnot@gmail.com"><i class="fas fa-envelope"></i></a>
-
-     </div>
-    <div class="footer-text">
-        <p>&copy; Mintesnot Milkiyas - All Rights Reserved</p>
+      <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="https://github.com/MintesnotMilkiyas"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.facebook.com/lijminte.miki"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="https://www.instagram.com/mintemiki2025?igsh=OTd4dDl6czRtaXpw"><i class="fa-brands fa-instagram"></i></a>
     </div>
+    <a href="#" class="btn">Download CV</a>
+  </div>
+</section>
+
+<!-- ABOUT SECTION (with rotating image) -->
+<section class="about" id="about">
+  <div class="about-content">
+    <h2 class="heading">About <span>Me</span></h2>
+    <h3>I'm a <span class="change-text">Full Stack Web Developer</span></h3>
+    <p><span>Mintesnot Milkiyas</span>, a passionate Full Stack Web Developer focused on building modern, scalable, and user-friendly web applications. <br><br> I enjoy working across the full stack — from crafting clean UI with HTML, CSS, and React to building reliable backend systems using PHP, Node.js, and MySQL. <br><br> Currently, I’m developing an Academic Portal System for Ethiopian undergraduate institutions, designed to streamline academic workflows.</p>
+    <a href="#home" class="btn">Read more</a>
+  </div>
+  <div class="about-img">
+    <img src="images/profile3.png" alt="About Mintesnot" id="rotatingAboutImg">
+  </div>
+</section>
+
+<!-- SERVICES SECTION (with skill items) -->
+<section class="services" id="services">
+  <h2 class="heading">My <span>Services</span></h2>
+  <div class="services-container">
+    <div class="services-box">
+      <i class="fa-solid fa-code"></i>
+      <h3>Frontend Web Dev</h3>
+      <div class="skill-container">
+        <div class="skill-item"><i class="fa-brands fa-html5"></i><p>HTML</p></div>
+        <div class="skill-item"><i class="fa-brands fa-css3-alt"></i><p>CSS</p></div>
+        <div class="skill-item"><i class="fa-brands fa-js"></i><p>JS</p></div>
+      </div>
+      <a href="#" class="btn">Read More</a>
+    </div>
+    <div class="services-box">
+      <i class="fa-solid fa-server"></i>
+      <h3>Backend Web Dev</h3>
+      <div class="skill-container">
+        <div class="skill-item"><i class="fa-brands fa-php"></i><p>PHP</p></div>
+        <div class="skill-item"><i class="fa-brands fa-node-js"></i><p>Node.js</p></div>
+        <div class="skill-item"><i class="fa-brands fa-react"></i><p>React</p></div>
+      </div>
+      <a href="#" class="btn">Read More</a>
+    </div>
+    <div class="services-box">
+      <i class="fa-solid fa-database"></i>
+      <h3>Database</h3>
+      <div class="skill-container">
+        <div class="skill-item"><i class="fa-solid fa-database"></i><p>MySQL</p></div>
+      </div>
+      <a href="#" class="btn">Read More</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS SECTION (with clickable images) -->
+<section class="testimonials" id="testimonials">
+  <h2 class="heading">Client <span>Testimonials</span></h2>
+  <div class="testimonial-container">
+    <div class="testimonial-box">
+      <div class="client-info">
+        <img src="images/hosana.jpg" alt="Bank of Abyssinia">
+        <h3>Visit Hadiya web page</h3>
+      </div>
+      <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+      <p>Keep It Up, Keep It Up.....</p>
+    </div>
+    <div class="testimonial-box">
+      <div class="client-info">
+        <img src="images/test2.png" alt="WPT College">
+        <h3>WPT College</h3>
+      </div>
+      <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+      <p>Amazing Academic Portal & Good Job!!</p>
+    </div>
+    <div class="testimonial-box">
+      <div class="client-info">
+        <img src="images/ales.jpg" alt="Aleksa">
+        <h3>Aleksa</h3>
+      </div>
+      <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+      <p>The Project is Awesome!!</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE VIEWER MODAL -->
+<div id="image-viewer">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="full-image" src="" alt="full image">
+</div>
+
+<!-- CONTACT SECTION -->
+<section class="contact" id="contact">
+  <h2 class="heading">Contact <span>Me</span></h2>
+  <form action="#">
+    <div class="input-group">
+      <div class="input-box">
+        <input type="text" placeholder="Full Name">
+        <input type="number" placeholder="Phone Number">
+      </div>
+      <div class="input-box">
+        <input type="email" placeholder="Email Address">
+        <input type="text" placeholder="Title">
+      </div>
+    </div>
+    <textarea cols="30" rows="10" placeholder="Your Message"></textarea>
+    <div style="text-align: center;">
+      <input type="submit" value="Send Message" class="btn">
+    </div>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="social-media">
+    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+    <a href="https://github.com/MintesnotMilkiyas"><i class="fa-brands fa-github"></i></a>
+    <a href="https://www.instagram.com/mintemiki2025?igsh=OTd4dDl6czRtaXpw"><i class="fa-brands fa-instagram"></i></a>
+    <a href="mailto:milkiyasmintesnot@gmail.com"><i class="fas fa-envelope"></i></a>
+  </div>
+  <div class="footer-text"><p>&copy; Mintesnot Milkiyas - All Rights Reserved</p></div>
 </footer>
 
-
+<!-- typed.js -->
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-<script src="script.js"></script>
+<script>
+  (function() {
+    // ----- TYPED.JS (your strings) -----
+    if (document.querySelector('.multiple-text')) {
+      new Typed('.multiple-text', {
+        strings: [
+          "Frontend Web Developer",
+          "Backend Web Developer",
+          "Full Stack Web Developer",
+          "Web Designer"
+        ],
+        typeSpeed: 80,
+        backSpeed: 80,
+        backDelay: 1000,
+        loop: true
+      });
+    }
 
+    // ----- ROTATING ABOUT IMAGE (your logic) -----
+    const aboutImg = document.querySelector("#rotatingAboutImg");
+    if (aboutImg) {
+      const profileImages = [
+        "images/port.jpg",
+        "images/mintu.jpg",
+        "images/port1.jpg"
+      ];
+      let imageIndex = 0;
+
+      function rotateImage() {
+        aboutImg.style.opacity = "0.4";
+        aboutImg.style.transition = "0.5s ease";
+
+        setTimeout(() => {
+          imageIndex = (imageIndex + 1) % profileImages.length;
+          aboutImg.src = profileImages[imageIndex];
+          aboutImg.style.opacity = "1";
+        }, 500);
+      }
+      setInterval(rotateImage, 3000);
+    }
+
+    // ----- IMAGE VIEWER (for testimonial & any img with class .client-info img) -----
+    const viewer = document.getElementById('image-viewer');
+    const fullImg = document.getElementById('full-image');
+    const closeBtn = document.querySelector('#image-viewer .close');
+
+    // Open viewer for testimonial images + home + about (optional)
+    document.querySelectorAll('.client-info img, .home-img img, .about-img img').forEach(img => {
+      img.addEventListener('click', function(e) {
+        viewer.style.display = 'flex';
+        fullImg.src = this.src;
+      });
+    });
+
+    // Close viewer
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => viewer.style.display = 'none');
+    }
+    viewer.addEventListener('click', function(e) {
+      if (e.target === viewer) viewer.style.display = 'none';
+    });
+
+    // ----- SMOOTH SCROLL (for navbar and btns) -----
+    document.querySelectorAll('.navbar a[href^="#"], .btn[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const id = this.getAttribute('href');
+        if (id === '#') return;
+        const target = document.querySelector(id);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  })();
+</script>
+<!-- Ensure image files exist or replace paths: images/port.jpg, images/profile3.png, images/mintu.jpg, images/test2.png, images/port1.jpg -->
 </body>
 </html>
